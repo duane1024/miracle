@@ -26,7 +26,6 @@ def downloadSong(songtitle, songurl):
 	
 	for line in (urllib2.urlopen(songurl)).readlines():
 		songhtml += line
-	songsoup = BeautifulSoup(songhtml, "lxml")
 	songfilename = "".join([x if x.isalnum() else "_" for x in songtitle]) 
 	songfile = basedir + songfilename + fileext
 	uniq = 1
@@ -37,6 +36,8 @@ def downloadSong(songtitle, songurl):
 	print "Downloading Song: " + songtitle + " as " + songfile
 	with open(songfile, 'w') as f:
 		f.write(songhtml)
+
+	#songsoup = BeautifulSoup(songhtml, "lxml")
 	#print songsoup
 
 def downloadContents(url):
