@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import os
 import urllib2
 import urlparse
 import tidylib
@@ -17,11 +18,26 @@ def parseSongs(songitems):
 
 def downloadSong(songtitle, songurl):
 	songhtml = ''
+	basedir = "../data/queenpedia/"
+	fileext = ".html"
+
+	if not os.path.exists(basedir):
+		os.makedirs(basedir)
+	
 	for line in (urllib2.urlopen(songurl)).readlines():
 		songhtml += line
 	songsoup = BeautifulSoup(songhtml, "lxml")
-	print "Downloading Song: " + songsoup.title.string
-	print songsoup
+	songfilename = "".join([x if x.isalnum() else "_" for x in songtitle]) 
+	songfile = basedir + songfilename + fileext
+	uniq = 1
+	while os.path.exists(songfile):
+		songfile = '%s%s_%d%s' % (basedir, songfilename, uniq, fileext)
+		uniq += 1
+
+	print "Downloading Song: " + songtitle + " as " + songfile
+	with open(songfile, 'w') as f:
+		f.write(songhtml)
+	#print songsoup
 
 def downloadContents(url):
 	htmlcontents = ''
@@ -72,7 +88,7 @@ songs = downloadContents(mainurl)
 print len(songs)
 
 for song in songs:
-	songtitle = song[0]
+	songtitle = song[0].strip()
 	#print "Song Title: " + songtitle
 	songurl = urlparse.urljoin(mainurl, song[1])
 	#print "URL: " + songurl
