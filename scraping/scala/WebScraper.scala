@@ -1,14 +1,14 @@
-import java.io.StringReader
-import java.io.StringWriter
+import java.io.{StringWriter, StringReader}
 import javax.xml.transform.sax.SAXSource
 import scala.io.Source
-import scala.collection.JavaConversions._
+import scala.language.implicitConversions
+import scala.collection.convert.WrapAsScala.iterableAsScalaIterable
 import util.Properties
 
 import org.w3c.tidy.Tidy
-import org.xml.sax._
-import net.sf.saxon.s9api._
+import org.xml.sax.InputSource
 import net.sf.saxon.Configuration
+import net.sf.saxon.s9api.{Processor, QName, XdmItem, XdmNode}
 
 object WebScraper {
   val queenpediaSongList = "http://queenpedia.com/index.php?title=Song_List"
