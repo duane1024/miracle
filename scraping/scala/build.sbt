@@ -9,3 +9,5 @@ libraryDependencies += "org.ccil.cowan.tagsoup" % "tagsoup" % "1.2.1"
 libraryDependencies += "net.sf.jtidy" % "jtidy" % "r938"
 
 libraryDependencies += "xom" % "xom" % "1.2.5"
+
+libraryDependencies += "net.sf.saxon" % "Saxon-HE" % "9.4.0.7"
