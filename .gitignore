@@ -1,2 +1,4 @@
-scratch
-data
+scratch/
+data/
+project/
+target/
