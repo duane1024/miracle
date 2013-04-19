@@ -18,6 +18,10 @@ http.get(queenpediaSongList, function(result) {
 		
 		console.log('Found ' + songitems.length + ' songs');
 		
-		
+		songitems.each(function() {
+			var songtitle = $(this).find('a').text().trim();
+			var songurl = $(this).find('a').attr('href');
+			console.log("Song Title = " + songtitle + ", Song URL = " + songurl);
+		});
 	});
 });
